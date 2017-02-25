@@ -80,6 +80,7 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow)
+//mongoose.connect(connectionString);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
