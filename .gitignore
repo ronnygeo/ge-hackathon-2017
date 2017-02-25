@@ -41,3 +41,4 @@ jspm_packages
 jsLibraryMappings.xml
 misc.xml
 
+.DS_Store

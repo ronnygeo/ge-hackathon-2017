@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Charles App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="foundation.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+  <div id="side-bar">
+    <div id="company-logo">
+      <img class="responsive-image" src="images/ge.png" />
+      Charles
+    </div>
+    <ul>
+      <li>
+        <figure>
+          <i class="fa fa-4x fa-cloud-upload" aria-hidden="true"></i>
+          <figcaption>Upload</figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure>
+          <i class="fa fa-4x fa-paper-plane" aria-hidden="true"></i>
+          <figcaption>Send</figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure>
+          <i class="fa fa-4x fa-comments-o" aria-hidden="true"></i>
+          <figcaption>Message</figcaption>
+        </figure>
+      </li>
+
+
+
+    </ul>
+  </div>
+
+      <div id="top-bar" class="row">
+        <ul>
+          <li>
+            <figure class="tb-user-image">
+              <img class="img-responsive" src="images/placeholder-new-contact.png"/>
+              <figcaption>Add</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="tb-user-image">
+              <img src="images/placeholder-user.png"/>
+              <figcaption>User 1</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="tb-user-image">
+            <img src="images/placeholder-user.png"/>
+            <figcaption>User 2</figcaption>
+            </figure>
+          </li>
+        </ul>
+      </div>
+
+  <div class="row" id="content-holder">
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+<ul>
+  <li>This is your first message with this user. Make it awesome!</li>
+  <!--Append messages to this list from the socket-->
+
+</ul>
+  </div>
+  <footer>
+  <div class="row" id="action-box">
+    <input id="text-input" name="text-input" type="text" placeholder="Enter your message..">
+  </div>
+  </footer>
+  </body>
+
+  <!---->
+  <!--<script src="foundation.min.js"></script>-->
+  <!--<script src="jquery.js"></script>-->
+  <!--<script src="js/vendor/what-input.min.js"></script>-->
+  <script>
+      // You can also require other files to run in this process
+      require('./renderer.js');
+//      $(document).foundation();
+  </script>
+
+</html>
