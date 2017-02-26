@@ -1,7 +1,7 @@
 body {
   padding: 0;
   margin: 0;
-  margin-top: -1rem; }
+  overflow: hidden; }
 
 .top-bar {
   height: 15vh;
@@ -34,7 +34,7 @@ body {
   background-color: #28559c;
   z-index: 100;
   height: 100vh;
-  width: 6rem;
+  min-width: 6rem;
   text-align: center; }
   #side-bar ul {
     margin-top: 2rem;
@@ -65,7 +65,7 @@ body {
 
 .content-holder {
   padding: 1.5rem;
-  height: 79vh; }
+  min-width: 100% !important; }
   .content-holder ul {
     overflow: hidden; }
 
@@ -84,12 +84,6 @@ body {
 #action-box {
   max-height: 10vh; }
 
-#chat-content, #upload-file, #send-file {
-  display: none; }
-
-#landing-content {
-  padding: 10rem; }
-
 #profile {
   padding: 1rem;
   background: #e2e2e2;
@@ -104,7 +98,7 @@ body {
   border: 3px dashed grey;
   text-align: center;
   border-radius: 10px;
-  margin-top: 35vh;
+  margin-top: 20vh;
   padding: 5rem; }
 
 #container {
@@ -112,8 +106,8 @@ body {
   max-width: 100vw !important; }
 
 #upload-content-holder {
-  width: 100vw;
-  height: 100vh; }
+  width: 100%;
+  height: 100%; }
 
 .custom-btn-container {
   position: absolute;
@@ -131,7 +125,6 @@ body {
   width: 50vw;
   margin: auto;
   height: 4rem;
-  margin-top: 25vh;
   border-radius: 14px; }
 
 .tabs-content {
@@ -139,5 +132,13 @@ body {
 
 #login-page {
   padding: 10rem; }
+
+.message-container {
+  height: 95vh; }
+
+#charles-talk {
+  text-align: center; }
+  #charles-talk img {
+    height: 10vh; }
 
 /*# sourceMappingURL=style.css.map */

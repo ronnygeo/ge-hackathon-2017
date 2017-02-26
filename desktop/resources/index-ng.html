@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html ng-app="CharlesApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Charles App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="foundation.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body ng-controller="MainController as main">
+<div class="row" id="container">
+    <div id="side-bar" class="columns small-1">
+        <div id="company-logo">
+            <img class="responsive-image" src="images/ge.png" />
+            Charles
+        </div>
+        <ul>
+            <li id="sb-upload-btn"  ng-class="isActive('/upload')" ng-click="main.goTo('upload')">
+                <!--<a href="#/upload">-->
+                <figure>
+                    <i class="fa fa-4x fa-cloud-upload" aria-hidden="true"></i>
+                    <figcaption>Upload</figcaption>
+                </figure>
+                <!--</a>-->
+            </li>
+            <li id="sb-send-btn" ng-class="isActive('/send')" ng-click="main.goTo('send')">
+                <!--<a href="#/send">-->
+                <figure>
+                    <i class="fa fa-4x fa-paper-plane" aria-hidden="true"></i>
+                    <figcaption>Send</figcaption>
+                </figure>
+                <!--</a>-->
+            </li>
+            <li id="sb-message-btn" ng-class="isActive('/message')" ng-click="main.goTo('message')">
+                <!--<a href="#/message">-->
+                <figure>
+                    <i class="fa fa-4x fa-comments-o" aria-hidden="true"></i>
+                    <figcaption>Message</figcaption>
+                </figure>
+                <!--</a>-->
+            </li>
+        </ul>
+        <div id="profile" ng-show="user">
+            <!--<a href="#/profile">-->
+            <figure>
+                <img class="responsive-image" src="images/lion.jpg" />
+                <figcaption>Username</figcaption>
+            </figure>
+            <!--</a>-->
+            <a ng-click="main.logout()">Logout</a>
+        </div>
+    </div>
+
+    <div class="columns small-offset-1 small-11" style="height: 100vh;padding:0">
+        <div ng-view>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    require('angular');
+</script>
+<script>window.$ = window.jQuery = require('jquery');</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+<!---->
+<script src="renderer.js"></script>
+<script src="foundation.min.js"></script>
+<script>
+    require('./renderer.js');
+    $(document).foundation();
+</script>
+
+<script src="app.js"></script>
+<script src="config.js"></script>
+<script src="views/main.controller.js"></script>
+<script src="views/dashboard.controller.js"></script>
+<script src="views/login.controller.js"></script>
+<script src="views/message.controller.js"></script>
+<script src="views/send.controller.js"></script>
+<script src="views/upload.controller.js"></script>
+
+<script src="services/user.service.js"></script>
+<script src="services/rules.service.js"></script>
+</body>
+</html>

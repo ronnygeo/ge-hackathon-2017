@@ -6,9 +6,10 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let win, splashScreen,
     windowParams = {
-        width: 720,
-        height: 670,
-        show: false
+        width: 1024,
+        height: 720,
+        show: false,
+        icon: __dirname + '/charles.ico'
     };
 
 function createWindow () {
@@ -17,7 +18,7 @@ function createWindow () {
 
     // and load the index.html of the app.
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'resources/index.html'),
+        pathname: path.join(__dirname, 'resources/index-ng.html'),
         protocol: 'file:',
         slashes: true
     }));
@@ -64,7 +65,7 @@ app.on('ready', () => {
     createSplashScreen();
     setTimeout(function() {
         createWindow();
-    }, 5000);
+    }, 8000);
 
 });
 
