@@ -4,5 +4,5 @@
 module.exports = function (app) {
     let q = require('q');
     let rulesModel = require("./model/rules.model.js")(q);
-    let rulesService = require("./services/rules.service")(app, q, rulesModel);
+    require("./services/rules.service.js")(app, q, rulesModel);
 };

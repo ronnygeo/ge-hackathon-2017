@@ -11,26 +11,22 @@ var userService=require('./services/user.service.server.js')();
 
 
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'html');
 //app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
+
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 // app.use(favicon(__dirname + '/public/media/favicon.ico'));
 
 
 var router = express.Router();              // get an instance of the express Router
-
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });
-});
 
 // more routes for our API will happen here
 
@@ -53,7 +49,7 @@ app.use(function(err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.send(err);
 });
 
 var numUsers = 0;
@@ -164,6 +160,6 @@ io.on('connection', function (socket) {
     });
 });
 
-require('./app.js')(app);
+require('./app.js')(router);
 //module.exports = app;
 server.listen(8080, 'localhost');
