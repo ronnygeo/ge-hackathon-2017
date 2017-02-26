@@ -6,8 +6,8 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let win, splashScreen,
     windowParams = {
-        width: 1000,
-        height: 700,
+        width: 720,
+        height: 670,
         show: false
     };
 
