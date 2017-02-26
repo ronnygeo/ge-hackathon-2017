@@ -151,5 +151,7 @@ io.on('connection', function (socket) {
     });
 });
 
+require('./app.js')(app);
+;
 //module.exports = app;
 server.listen(8080, 'localhost');
