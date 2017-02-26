@@ -4,18 +4,33 @@ const url = require('url')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win
+let win, splashScreen,
+    windowParams = {
+        width: 1000,
+        height: 700,
+        show: false
+    };
 
 function createWindow () {
     // Create the browser window.
-    win = new BrowserWindow({width: 1280, height: 720})
+    win = new BrowserWindow(windowParams);
 
     // and load the index.html of the app.
     win.loadURL(url.format({
         pathname: path.join(__dirname, 'resources/index.html'),
         protocol: 'file:',
         slashes: true
-    }))
+    }));
+
+    win.webContents.on('did-finish-load', () => {
+        win.show();
+
+        if (splashScreen) {
+            let splashScreenBounds = splashScreen.getBounds();
+            win.setBounds(splashScreenBounds);
+            splashScreen.close();
+        }
+    });
 
     // Open the DevTools.
     win.webContents.openDevTools()
@@ -29,10 +44,29 @@ function createWindow () {
     })
 }
 
+function createSplashScreen() {
+    splashScreen = new BrowserWindow(Object.assign(windowParams, {parent: win}));
+    splashScreen.loadURL(url.format({
+        pathname: path.join(__dirname, 'resources/splash.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+    splashScreen.on('closed', () => splashScreen = null);
+    splashScreen.webContents.on('did-finish-load', () => {
+        splashScreen.show();
+    });
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', () => {
+    createSplashScreen();
+    setTimeout(function() {
+        createWindow();
+    }, 5000);
+
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
