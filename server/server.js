@@ -1,4 +1,5 @@
 var express = require('express');
+var app = express();
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -6,8 +7,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+var userService=require('./services/user.service.server.js');
 
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,12 +43,16 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-module.exports = app;
-
 var numUsers = 0;
 
 io.on('connection', function (socket) {
     var addedUser = false;
+    console.log('lull');
+
+    socket.on('authenticate', function(data){
+
+        userService.authenticate(data);
+    });
 
     // when the client emits 'new message', this listens and executes
     socket.on('new message', function (data) {
@@ -104,5 +109,5 @@ io.on('connection', function (socket) {
     });
 });
 
-
-app.listen(8080, 'localhost');
+//module.exports = app;
+server.listen(8080, 'localhost');

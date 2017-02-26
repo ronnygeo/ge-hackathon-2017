@@ -13,20 +13,20 @@ $(function() {
     // Initialize variables
     var $window = $(window);
     //var $usernameInput = $('.usernameInput'); // Input for username
-    var $messages = $('#action-box'); // Messages area
+    var $messages = $('#messages'); // Messages area
     var $inputMessage = $('#text-input'); // Input message input box
 
     //var $loginPage = $('.login.page'); // The login page
     //var $chatPage = $('.chat.page'); // The chatroom page
 
     // Prompt for setting a username
-    var username;
-    var connected = false;
+    var username="sumeet";
+    //var connected = false;
     var typing = false;
     var lastTypingTime;
-    var $currentInput = $usernameInput.focus();
+    //var $currentInput = $usernameInput.focus();
 
-    var socket = io();
+    var socket = io.connect('localhost:8080');
 
     function addParticipantsMessage (data) {
         var message = '';
@@ -54,19 +54,30 @@ $(function() {
     //    }
     //}
 
-    function setUsername(){
-        username='sumeet';
-        socket.emil('add user', username);
-        $currentInput = $inputMessage.focus();
-    }
+    //function setUsername(){
+    //    username='sumeet';
+    //    socket.emit('add user', username);
+    //    $currentInput = $inputMessage.focus();
+    //}
 
+    function signin(username){
+        if(username){
+            socket.emit('authenticate', username)
+        }
+        else{
+            $window.alert("cant be blank");
+        }
+    }
+    signin(username);
     // Sends a chat message
     function sendMessage () {
         var message = $inputMessage.val();
+        //console.log(message);
         // Prevent markup from being injected into the message
         message = cleanInput(message);
         // if there is a non-empty message and a socket connection
-        if (message && connected) {
+        if (message) {
+            console.log("conn");
             $inputMessage.val('');
             addChatMessage({
                 username: username,
@@ -104,7 +115,7 @@ $(function() {
             .data('username', data.username)
             .addClass(typingClass)
             .append($usernameDiv, $messageBodyDiv);
-
+        console.log($messageDiv);
         addMessageElement($messageDiv, options);
     }
 
@@ -160,7 +171,7 @@ $(function() {
 
     // Updates the typing event
     function updateTyping () {
-        if (connected) {
+        //if (connected) {
             if (!typing) {
                 typing = true;
                 socket.emit('typing');
@@ -175,7 +186,7 @@ $(function() {
                     typing = false;
                 }
             }, TYPING_TIMER_LENGTH);
-        }
+        //}
     }
 
     // Gets the 'X is typing' messages of a user
@@ -201,9 +212,9 @@ $(function() {
 
     $window.keydown(function (event) {
         // Auto-focus the current input when a key is typed
-        if (!(event.ctrlKey || event.metaKey || event.altKey)) {
-            $currentInput.focus();
-        }
+        //if (!(event.ctrlKey || event.metaKey || event.altKey)) {
+        //    $currentInput.focus();
+        //}
         // When the client hits ENTER on their keyboard
         if (event.which === 13) {
             if (username) {
@@ -223,9 +234,9 @@ $(function() {
     // Click events
 
     // Focus input when clicking anywhere on login page
-    $loginPage.click(function () {
-        $currentInput.focus();
-    });
+    //$loginPage.click(function () {
+    //    $currentInput.focus();
+    //});
 
     // Focus input when clicking on the message input's border
     $inputMessage.click(function () {
@@ -238,10 +249,10 @@ $(function() {
     socket.on('login', function (data) {
         connected = true;
         // Display the welcome message
-        var message = "Welcome to Socket.IO Chat – ";
-        log(message, {
-            prepend: true
-        });
+        //var message = "Welcome";
+        //log(message, {
+        //    prepend: true
+        //});
         addParticipantsMessage(data);
     });
 
