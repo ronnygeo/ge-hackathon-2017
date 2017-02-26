@@ -6,7 +6,7 @@
     angular.module("CharlesApp")
         .config(function ($routeProvider) {
             $routeProvider
-                .when('/', {
+                .when('/home', {
                     controller: 'DashboardController',
                     controllerAs: "model",
                     templateUrl: 'views/dashboard.view.html',
@@ -14,10 +14,10 @@
                     //     loggedin: checkCurrentUser
                     // }
                 })
-                .when('/login', {
+                .when('/', {
                     controller: 'LoginController',
                     templateUrl: 'views/login.view.html',
-                    controllerAs: 'lc'
+                    controllerAs: 'user'
                 })
                 .when('/upload', {
                     controller: 'UploadController',

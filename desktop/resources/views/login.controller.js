@@ -17,10 +17,12 @@
             //console.log($scope.username+$scope.password);
             user.username = vm.username;
             user.password = vm.password;
-            UserService.login(user).then(render);
+            $location.url('/home');
+            // UserService.login(user).then(render);
         }
 
         function render(res) {
+            $location.url('/home');
             if (res.data){
                 $rootScope.user = res.data;
                 $location.url('/profile/');
