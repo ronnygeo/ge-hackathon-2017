@@ -1,6 +1,7 @@
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
+
 $(function() {
     var FADE_TIME = 150; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
@@ -12,9 +13,11 @@ $(function() {
 
     // Initialize variables
     var $window = $(window);
-    //var $usernameInput = $('.usernameInput'); // Input for username
     var $messages = $('#messages'); // Messages area
     var $inputMessage = $('#text-input'); // Input message input box
+
+    window.signin = signin;
+    window.addUser=addUser;
 
     //var $loginPage = $('.login.page'); // The login page
     //var $chatPage = $('.chat.page'); // The chatroom page
@@ -25,7 +28,7 @@ $(function() {
     var typing = false;
     var lastTypingTime;
     //var $currentInput = $usernameInput.focus();
-
+    var user2 = 'ronny';
     var socket = io.connect('http://localhost:8080');
 
     function addParticipantsMessage (data) {
@@ -61,15 +64,17 @@ $(function() {
     //}
 
     function signin(username){
-        username = cleanInput($usernameInput.val().trim());
+        //username = $('#username').val();
+        //username = cleanInput($usernameInput.val().trim());
         if(username){
-            socket.emit('authenticate', username)
-        }
-        else{
-            $window.alert("cant be blank");
+            socket.emit('authenticate', username);
         }
     }
-    signin(username);
+
+    function addUser(){
+        socket.emit('add user', user2);
+    }
+
     // Sends a chat message
     function sendMessage () {
         var message = $inputMessage.val();
@@ -77,15 +82,16 @@ $(function() {
         // Prevent markup from being injected into the message
         message = cleanInput(message);
         // if there is a non-empty message and a socket connection
+        var data={
+            username: username,
+            message: message
+        };
         if (message) {
-            console.log("conn");
+            //console.log("conn");
             $inputMessage.val('');
-            addChatMessage({
-                username: username,
-                message: message
-            });
+            addChatMessage(data);
             // tell server to execute 'new message' and send along one parameter
-            socket.emit('new message', message);
+            socket.emit('new message', data);
         }
     }
 
@@ -122,9 +128,14 @@ $(function() {
 
     // Adds the visual chat typing message
     function addChatTyping (data) {
-        data.typing = true;
-        data.message = 'is typing';
-        addChatMessage(data);
+        console.log(username)
+        console.log(data.username)
+        console.log(username === data.username);
+        if(data.username != username) {
+            data.typing = true;
+            data.message = 'is typing';
+            addChatMessage(data);
+        }
     }
 
     // Removes the visual chat typing message
@@ -175,7 +186,7 @@ $(function() {
         //if (connected) {
             if (!typing) {
                 typing = true;
-                socket.emit('typing');
+                socket.emit('typing', username);
             }
             lastTypingTime = (new Date()).getTime();
 
@@ -183,7 +194,7 @@ $(function() {
                 var typingTimer = (new Date()).getTime();
                 var timeDiff = typingTimer - lastTypingTime;
                 if (timeDiff >= TYPING_TIMER_LENGTH && typing) {
-                    socket.emit('stop typing');
+                    socket.emit('stop typing', username);
                     typing = false;
                 }
             }, TYPING_TIMER_LENGTH);
@@ -220,10 +231,10 @@ $(function() {
         if (event.which === 13) {
             if (username) {
                 sendMessage();
-                socket.emit('stop typing');
+                socket.emit('stop typing', username);
                 typing = false;
             } else {
-                setUsername();
+                //setUsername();
             }
         }
     });
@@ -249,7 +260,13 @@ $(function() {
     // Whenever the server emits 'login', log the login message
     socket.on('successful', function (data) {
         connected = true;
-        addParticipantsMessage(data);
+        username=data;
+        console.log("user set to "+username);
+        $('#upload-file').css('display', 'none');
+        $('#landing-content').css('display', 'none');
+        $('#login-page').css('display', 'none');
+        $('#send-file').css('display', 'none');
+        $('#chat-content').css('display', 'block');
     });
 
     socket.on('unsuccessful', function(data){
@@ -264,7 +281,7 @@ $(function() {
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', function (data) {
         log(data.username + ' joined');
-        addParticipantsMessage(data);
+        //addParticipantsMessage(data);
     });
 
     // Whenever the server emits 'user left', log it in the chat body
@@ -298,5 +315,9 @@ $(function() {
     socket.on('reconnect_error', function () {
         log('attempt to reconnect has failed');
     });
+
+    socket.on('add unsuccessful', function(){
+        addMessageElement('user seems to be offline');
+    })
 
 });

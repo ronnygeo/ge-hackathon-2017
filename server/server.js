@@ -57,83 +57,113 @@ app.use(function(err, req, res, next) {
 });
 
 var numUsers = 0;
+var onlineUsers={};
+var connectedUsers={};
 
 io.on('connection', function (socket) {
     var addedUser = false;
 
     socket.on('authenticate', function(data){
         if(userService.authenticate(data)){
-            socket.username=data;
-            ++numUsers;
-            socket.emit('successful');
+            onlineUsers[data] = socket;
+            connectedUsers[data]=socket;
+            console.log('data');
+            //socket.username=data;
+            numUsers++;
+            socket.emit('successful', data);
             // echo globally (all clients) that a person has connected
-            socket.broadcast.emit('user joined', {
-                username: socket.username,
-                numUsers: numUsers
-            });
+            //socket.broadcast.emit('user joined', {
+            //    username: socket.username,
+            //    numUsers: numUsers
+            //});
         }
         else{
             socket.emit('unsuccessful')
         }
     });
 
+    socket.on('add user', function(username){
+        if(username in onlineUsers){
+            connectedUsers[username]=onlineUsers[username];
+            console.log(connectedUsers);
+            for(var user in connectedUsers){
+                connectedUsers[user].emit('user joined', {
+                    username: username
+                });
+            }
+        }
+        else{
+            socket.emit('add unsuccessful');
+        }
+    });
+
     // when the client emits 'new message', this listens and executes
     socket.on('new message', function (data) {
         // we tell the client to execute 'new message'
-        socket.broadcast.emit('new message', {
-            username: socket.username,
-            message: data
-        });
+        for (var user in connectedUsers){
+                if(connectedUsers[user] != data.username) {
+                    connectedUsers[user].emit('new message', {
+                        username: data.username,
+                        message: data.message
+                    })
+                };
+        }
     });
 
     // when the client emits 'add user', this listens and executes
-    socket.on('add user', function (username) {
-        if (addedUser) return;
-
-        // we store the username in the socket session for this client
-        socket.username = username;
-        ++numUsers;
-        addedUser = true;
-        socket.emit('login', {
-            numUsers: numUsers
-        });
-        // echo globally (all clients) that a person has connected
-        socket.broadcast.emit('user joined', {
-            username: socket.username,
-            numUsers: numUsers
-        });
-
-    });
+    //socket.on('add user', function (username) {
+    //    if (addedUser) return;
+    //
+    //    // we store the username in the socket session for this client
+    //    socket.username = username;
+    //    numUsers++;
+    //    addedUser = true;
+    //    socket.emit('login', {
+    //        numUsers: numUsers
+    //    });
+    //    // echo globally (all clients) that a person has connected
+    //    socket.broadcast.emit('user joined', {
+    //        username: socket.username,
+    //        numUsers: numUsers
+    //    });
+    //
+    //});
 
     // when the client emits 'typing', we broadcast it to others
-    socket.on('typing', function () {
-        socket.broadcast.emit('typing', {
-            username: socket.username
-        });
+    socket.on('typing', function (username) {
+        for(var user in connectedUsers){
+            console.log(username!=user)
+            if (user != username){
+                socket.broadcast.emit('typing', {
+                    username: username
+                });
+            }
+        }
     });
 
     // when the client emits 'stop typing', we broadcast it to others
-    socket.on('stop typing', function () {
+    socket.on('stop typing', function (username) {
         socket.broadcast.emit('stop typing', {
-            username: socket.username
+            username: username
         });
     });
 
     // when the user disconnects.. perform this
     socket.on('disconnect', function () {
-        if (addedUser) {
-            --numUsers;
-
-            // echo globally that this client has left
-            socket.broadcast.emit('user left', {
-                username: socket.username,
-                numUsers: numUsers
-            });
-        }
+        //if (data in onlineUsers) {
+        //    numUsers--;
+        //    delete onlineUsers[data];
+        //    delete connectedUsers[data];
+        //    // echo globally that this client has left
+        //    for (var user in connectedUsers) {
+        //        connectedUsers[user].emit('user left', {
+        //        //
+        //        });
+        //    }
+        //}
     });
 });
 
-require("./app.js")(router);
-
+require('./app.js')(app);
 //module.exports = app;
 server.listen(8080, 'localhost');

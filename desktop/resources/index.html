@@ -48,8 +48,8 @@
       <div class="row">
         <h4>Hi!</h4>
         <p> Login to get access to Charles</p>
-        <input type="text" placeholder="username" name="username"/>
-        <input type="text" placeholder="password" name="username"/>
+        <input id="username" type="text" placeholder="username"/>
+        <input type="text" placeholder="password" name="password"/>
       </div>
       <div class="row custom-btn-container" style="margin-left: -10rem">
         <a class="custom-btn" id="login-btn" style="color: white">Login</a>
@@ -174,7 +174,7 @@
           </li>
           <li>
             <figure class="tb-user-image">
-              <img src="images/placeholder-user.png"/>
+              <img id="user1" src="images/placeholder-user.png"/>
               <figcaption>User 1</figcaption>
             </figure>
           </li>
@@ -187,7 +187,7 @@
         </ul>
       </div>
       <div class="row content-holder" id="chat-content-holder">
-        <ul>
+        <ul id="messages">
           <li>This is your first message with this user. Make it awesome!</li>
           <!--Append messages to this list from the socket-->
 
@@ -204,12 +204,14 @@
   <script>window.$ = window.jQuery = require('jquery');</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
   <!---->
+  <script src="renderer.js"></script>
   <script src="foundation.min.js"></script>
   <!--<script src="jquery.js"></script>-->
   <!--<script src="js/vendor/what-input.min.js"></script>-->
   <script>
       // You can also require other files to run in this process
       require('./renderer.js');
+//      require('angular');
       $(document).foundation();
   </script>
 
@@ -255,14 +257,19 @@
             $('#chat-content').css('display', 'block')
         })
         $('#upload-btn').click(function () {
-            let text = $('#charles-prompt').val()
+            let text = $('#charles-prompt').val();
             //TODO: regex to get the username and the file name from the text
 
         })
     })
+
+    $('#login-btn').click(function(){
+        signin($('#username').val());
+    });
+
+    $('#user1').click(function(){
+        addUser();
+    })
   </script>
-
   </body>
-
-
 </html>

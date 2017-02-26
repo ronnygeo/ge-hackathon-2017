@@ -3,20 +3,66 @@
 <head>
     <style type='text/css'>
         body {
-            background-color: #167dbc;
+            background-color: #0b76b7;
             margin: auto;
             color: white;
             font-family: sans-serif;
             height: 100vh;
             width: 100vw;
             text-align: center;
-            margin-top: 49vh;
-            font-size: xx-large;
-            text-shadow: 1px 1px 1px white, 1px 1px 0px black;
+            margin-top: 46vh;
+            font-size: 3rem;
+            /*text-shadow: 1px 2px 3px black;*/
+        }
+        .prompt {
+            color: white;
+            font-family: sans-serif;
+            text-align: center;
+            font-size: 3rem;
+            /*text-shadow: 1px 2px 3px black;*/
+        }
+        .typed-cursor{
+            opacity: 1;
+            -webkit-animation: blink 0.7s infinite;
+            -moz-animation: blink 0.7s infinite;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink{
+            0% { opacity:1; }
+            50% { opacity:0; }
+            100% { opacity:1; }
+        }
+        @-webkit-keyframes blink{
+            0% { opacity:1; }
+            50% { opacity:0; }
+            100% { opacity:1; }
+        }
+        @-moz-keyframes blink{
+            0% { opacity:1; }
+            50% { opacity:0; }
+            100% { opacity:1; }
         }
     </style>
 </head>
 <body>
-Hello.
+<span class="prompt">
+
+</span>
+<script>window.$ = window.jQuery = require('jquery');</script>
+<!--<script src="jquery.js"></script>-->
+<script src="typed.js"></script>
+<script>
+    $(function(){
+        $(".prompt").typed({
+            strings: ["Hello.", "My name is Charles.", "How can I help you today?"],
+            typeSpeed: 70,
+            backDelay: 400,
+            loop: false
+        });
+        setTimeout(function () {
+            $('body').fadeOut('slow');
+        }, 7700);
+    });
+</script>
 </body>
 </html>
