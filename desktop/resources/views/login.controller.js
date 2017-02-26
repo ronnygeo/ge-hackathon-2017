@@ -18,6 +18,11 @@
             user.username = vm.username;
             user.password = vm.password;
             $location.url('/home');
+            $rootScope.user = user.username;
+            if(user.username){
+                socket.emit('authenticate', user.username);
+            }
+
             // UserService.login(user).then(render);
         }
 
