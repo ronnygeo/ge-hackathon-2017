@@ -174,7 +174,7 @@
           </li>
           <li>
             <figure class="tb-user-image">
-              <img src="images/placeholder-user.png"/>
+              <img id="user1" src="images/placeholder-user.png"/>
               <figcaption>User 1</figcaption>
             </figure>
           </li>
@@ -256,7 +256,7 @@
             $('#chat-content').css('display', 'block')
         })
         $('#upload-btn').click(function () {
-            let text = $('#charles-prompt').val()
+            let text = $('#charles-prompt').val();
             //TODO: regex to get the username and the file name from the text
 
         })
@@ -264,10 +264,11 @@
 
     $('#login-btn').click(function(){
         signin($('#username').val());
+    });
+
+    $('#user1').click(function(){
+        addUser();
     })
   </script>
-
   </body>
-
-
 </html>
