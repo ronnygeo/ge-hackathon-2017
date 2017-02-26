@@ -1,0 +1,10 @@
+[{"source":"US","destinations":["CN","CF","HN","PT","SE","CO","CN","ID","ID","CN","ID","TZ","CA","PH","CN","SV","CN","ID","ID","UA","CO","ID","UZ","CN","CN"]},
+  {"source":"GB","destinations":["IE","ZA","ID","RU","NZ","CN","CN","SE","IE","TH","CZ","BR","RS","SE","US","PL","VN","RU","PL","HR","ID","BR","LV","BA","TH"]},
+  {"source":"RS","destinations":["PT","ID","CZ","ID","AR","PH","PT","PE","ID","MD","CN","ID","ID","BR","SE","ID","ID","ID","SE","GR","CN","SN","VN","PE","BG"]},
+  {"source":"AZ","destinations":["ID","ZA","GR","CO","EE","CA","CN","RU","KP","PL","CO","CN","ID","SE","PL","RU","CN","FR","AF","GT","VE","NI","ID","RU","ID"]},
+  {"source":"MY","destinations":["BR","CN","GR","YT","FI","ID","CO","BE","MX","UA","RU","TJ","NL","CZ","ID","CN","PL","ID","PT","MK","CN","BY","CN","CO","DJ"]},
+  {"source":"CO","destinations":["ID","PH","ID","YE","CN","CR","PA","PK","RU","EG","CN","DE","UA","MN","RU","PE","PL","FR","ID","AR","CN","AM","TH","ID","VE"]},
+  {"source":"IN","destinations":["PL","CN","CZ","PK","RU","ID","MZ","MX","CN","CN","PH","CN","CN","PH","MX","PH","CN","DE","MX","CY","ID","CA","SE","NG","UA"]},
+  {"source":"ZA","destinations":["CN","IE","CN","CZ","PL","SE","CA","JP","CZ","PH","BY","CA","CZ","JP","TZ","MV","ID","SV","IE","SY","RU","PH","FR","US","SE"]},
+  {"source":"CN","destinations":["BR","PH","ID","ZW","SE","RU","MA","SI","CI","RU","CN","BR","ID","PH","AZ","BW","CN","ID","BR","NO","BR","PA","VN","CN","AR"]},
+  {"source":"FI","destinations":["FR","ID","CN","RU","CN","NO","IE","CN","PH","VN","CN","GB","BR","EG","BR","RU","CN","NI","IR","PL","CN","GR","CN","AM","FR"]}]
