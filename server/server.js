@@ -61,6 +61,7 @@ io.on('connection', function (socket) {
 
     socket.on('authenticate', function(data){
         if(userService.authenticate(data)){
+            console.log('authenticated' +data)
             onlineUsers[data] = socket;
             connectedUsers[data]=socket;
             console.log('data');
