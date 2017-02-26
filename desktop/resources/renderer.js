@@ -20,13 +20,13 @@ $(function() {
     //var $chatPage = $('.chat.page'); // The chatroom page
 
     // Prompt for setting a username
-    var username="sumeet";
-    //var connected = false;
+    var username;
+    var connected = false;
     var typing = false;
     var lastTypingTime;
     //var $currentInput = $usernameInput.focus();
 
-    var socket = io.connect('localhost:8080');
+    var socket = io.connect('http://localhost:8080');
 
     function addParticipantsMessage (data) {
         var message = '';
@@ -61,6 +61,7 @@ $(function() {
     //}
 
     function signin(username){
+        username = cleanInput($usernameInput.val().trim());
         if(username){
             socket.emit('authenticate', username)
         }
@@ -246,14 +247,13 @@ $(function() {
     // Socket events
 
     // Whenever the server emits 'login', log the login message
-    socket.on('login', function (data) {
+    socket.on('successful', function (data) {
         connected = true;
-        // Display the welcome message
-        //var message = "Welcome";
-        //log(message, {
-        //    prepend: true
-        //});
         addParticipantsMessage(data);
+    });
+
+    socket.on('unsuccessful', function(data){
+        console.log('sorry..user doesnt exist')
     });
 
     // Whenever the server emits 'new message', update the chat body

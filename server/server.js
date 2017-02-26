@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var userService=require('./services/user.service.server.js');
+var userService=require('./services/user.service.server.js')();
 
 
 // view engine setup
@@ -47,11 +47,21 @@ var numUsers = 0;
 
 io.on('connection', function (socket) {
     var addedUser = false;
-    console.log('lull');
 
     socket.on('authenticate', function(data){
-
-        userService.authenticate(data);
+        if(userService.authenticate(data)){
+            socket.username=data;
+            ++numUsers;
+            socket.emit('successful');
+            // echo globally (all clients) that a person has connected
+            socket.broadcast.emit('user joined', {
+                username: socket.username,
+                numUsers: numUsers
+            });
+        }
+        else{
+            socket.emit('unsuccessful')
+        }
     });
 
     // when the client emits 'new message', this listens and executes
@@ -79,6 +89,7 @@ io.on('connection', function (socket) {
             username: socket.username,
             numUsers: numUsers
         });
+
     });
 
     // when the client emits 'typing', we broadcast it to others
