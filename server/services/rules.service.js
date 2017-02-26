@@ -7,6 +7,7 @@ module.exports = function (app, q, rulesModel) {
         res.json({ message: 'hooray! welcome to rules api!' });
     });
     app.post('/rules/country', checkCountryRules);
+    app.post('/rules/send', checkSendRules);
     app.post('/rules/tool-conditions', checkToolConditions);
 
     function checkCountryRules(req, res) {
@@ -20,6 +21,19 @@ module.exports = function (app, q, rulesModel) {
                 return res.status(400).send(err);
             });
     }
+
+    function checkSendRules(req, res) {
+        let data = req.body;
+        console.log(data);
+        rulesModel.checkSendRules(data).then(function (data) {
+                console.log(data);
+                return res.json(data);
+            },
+            function (err) {
+                return res.status(400).send(err);
+            });
+    }
+
 
     function checkToolConditions(req, res) {
         let data = req.body;

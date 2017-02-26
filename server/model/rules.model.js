@@ -20,10 +20,9 @@ module.exports = function (q) {
     //API to access the functions
     return {
         checkCountryRules: checkCountryRules,
-        checkToolRules: checkToolRules
+        checkToolRules: checkToolRules,
+        checkSendRules: checkSendRules
     };
-
-
 
     function checkCountryRules(fact) {
         let deferred = q.defer();
@@ -35,6 +34,26 @@ module.exports = function (q) {
             }
             else {
                 deferred.reject("Compliance does not allow you to send the file to this destination.");
+            }
+        }
+        return deferred.promise;
+    }
+
+    function checkSendRules(fact) {
+        let deferred = q.defer();
+        console.log(fact);
+        if (fact.user.status != "LR") {
+            deferred.reject("Compliance Mismatch: you do not have the necessary clearance.");
+        } else {
+            for (let c in rulesDataCountry) {
+                // console.log(rulesDataCountry[c].source == fact.source);
+                if (rulesDataCountry[c].source == fact.source && rulesDataCountry[c].destinations.indexOf(fact.destination) != -1) {
+                    // console.log("got "+fact.source+" and "+fact.destination);
+                    deferred.resolve({"status": true});
+                }
+                else {
+                    deferred.reject("Compliance does not allow you to send the file to this destination.");
+                }
             }
         }
         return deferred.promise;
