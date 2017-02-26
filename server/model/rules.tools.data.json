@@ -1,0 +1,13 @@
+{
+  "US": {
+    "sendlr": {
+      "airbus": {
+        "conditions": {
+          "DODApproval": true,
+          "OnECServer": true,
+          "airbusApproval": true
+        }
+      }
+    }
+  }
+}
