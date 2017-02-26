@@ -8,37 +8,99 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
-  <div class="row">
-  <div id="side-bar" class="column small-1">
+  <div class="row" id="container">
+  <div id="side-bar" class="columns small-1">
     <div id="company-logo">
       <img class="responsive-image" src="images/ge.png" />
       Charles
     </div>
     <ul>
-      <li>
+      <li id="sb-upload-btn">
         <figure>
           <i class="fa fa-4x fa-cloud-upload" aria-hidden="true"></i>
           <figcaption>Upload</figcaption>
         </figure>
       </li>
-      <li>
+      <li id="sb-send-btn">
         <figure>
           <i class="fa fa-4x fa-paper-plane" aria-hidden="true"></i>
           <figcaption>Send</figcaption>
         </figure>
       </li>
-      <li>
+      <li id="sb-message-btn">
         <figure>
           <i class="fa fa-4x fa-comments-o" aria-hidden="true"></i>
           <figcaption>Message</figcaption>
         </figure>
       </li>
     </ul>
+    <div id="profile">
+      <figure>
+        <img class="responsive-image" src="images/lion.jpg" />
+        <figcaption>Username</figcaption>
+      </figure>
+      <a>Logout</a>
+    </div>
   </div>
 
-    <div class="column small-offset-1 small-11" style="height: 100vh">
+    <!--Login Page-->
+    <div class="columns small-offset-1 small-11" style="height: 100vh" id="login-page">
+      <div class="row">
+        <h4>Hi!</h4>
+        <p> Login to get access to Charles</p>
+        <input type="text" placeholder="username" name="username"/>
+        <input type="text" placeholder="password" name="username"/>
+      </div>
+      <div class="row custom-btn-container" style="margin-left: -10rem">
+        <a class="custom-btn" id="login-btn" style="color: white">Login</a>
+      </div>
+    </div>
+
+    <!--Landing Page-->
+    <div class="columns small-offset-1 small-11" style="height: 100vh" id="landing-content">
+    <div class="row">
+      <h4>Hello from Charles!</h4>
+      <p> I'm here to assist you on everything, say good bye to all printouts.</p>
+      <ul>
+        Some of the things that I can do:
+        <li>Upload your new document and tag.</li>
+        <li>Send documents to your fellow collaborators.</li>
+        <li>Chat with your collaborators in realtime.</li>
+      </ul>
+      <h6>Your wish is my COMMAND!</h6>
+    </div>
+    </div>
+
+  <!--TODO: Move to ng views-->
+    <!--Upload file view-->
+    <div class="columns small-offset-1 small-11" style="height: 100vh" id="upload-file">
       <!-- All of the Node.js APIs are available in this renderer process. -->
-      <div id="top-bar" class="row">
+      <div class="row content-holder" id="upload-content-holder">
+        <div class="row">
+          <div class="columns small-offset-3 small-6 upload-drag-container">
+            <figure class="tb-user-image">
+              <i class="fa fa-4x fa-plus-circle" aria-hidden="true"></i>
+              <br><br><br>
+              Drag and Drop your file or select file below
+            </figure>
+            <div class="row">
+              <div class="columns small-offset-2 small-8">
+            <input type="file" name="file">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row custom-btn-container">
+          <a class="custom-btn" style="color: white">Upload!</a>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="columns small-offset-1 small-11" style="height: 100vh" id="send-file">
+      <!-- All of the Node.js APIs are available in this renderer process. -->
+      <div id="send-contacts" class="row top-bar">
         <ul>
           <li>
             <figure class="tb-user-image">
@@ -60,18 +122,85 @@
           </li>
         </ul>
       </div>
-      <div class="row" id="content-holder">
-      <ul>
-        <li>This is your first message with this user. Make it awesome!</li>
-        <!--Append messages to this list from the socket-->
+      <div class="row content-holder" id="send-content-holder">
 
-      </ul>
+        <ul class="tabs" data-tabs id="send-tabs">
+          <li class="tabs-title is-active"><a href="#interactive" aria-selected="true">Interactive</a></li>
+          <li class="tabs-title"><a href="#manual">Manual</a></li>
+        </ul>
+        <div class="tabs-content" data-tabs-content="send-tabs">
+          <div class="tabs-panel is-active" id="manual">
+            <div class="row">
+              <h5>Charles file transfer</h5>
+              <select name="file" id="file-chooser">
+                <option>File 1</option>
+                <option>File 2</option>
+                <option>File 3</option>
+                <option>File 4</option>
+                <option>File 5</option>
+              </select>
+
+              <select name="send-to-user" id="user-chooser">
+                <option>User 1</option>
+                <option>User 2</option>
+                <option>User 3</option>
+                <option>User 4</option>
+                <option>User 5</option>
+              </select>
+            </div>
+          </div>
+          <div class="tabs-panel" id="interactive">
+            <div class="row">
+
+              <input type="text" id="charles-prompt" placeholder="Tell me what to do?"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="row custom-btn-container">
+        <a class="custom-btn" style="color: white">Send!</a>
     </div>
+    </div>
+    </div>
+
+    <div class="columns small-offset-1 small-11" style="height: 100vh" id="chat-content">
+      <!-- All of the Node.js APIs are available in this renderer process. -->
+      <div id="" class="row top-bar">
+        <ul>
+          <li>
+            <figure class="tb-user-image">
+              <i class="fa fa-4x fa-plus-circle" aria-hidden="true"></i>
+              <figcaption>Add</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="tb-user-image">
+              <img src="images/placeholder-user.png"/>
+              <figcaption>User 1</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="tb-user-image">
+              <img src="images/placeholder-user.png"/>
+              <figcaption>User 2</figcaption>
+            </figure>
+          </li>
+        </ul>
+      </div>
+      <div class="row content-holder" id="chat-content-holder">
+        <ul>
+          <li>This is your first message with this user. Make it awesome!</li>
+          <!--Append messages to this list from the socket-->
+
+        </ul>
+      </div>
       <div class="row" id="action-box">
         <input id="text-input" name="text-input" type="text" placeholder="Enter your message..">
       </div>
     </div>
+
   </div>
+
 
   <script>window.$ = window.jQuery = require('jquery');</script>
   <!---->
@@ -81,7 +210,56 @@
   <script>
       // You can also require other files to run in this process
       require('./renderer.js');
-            $(document).foundation();
+      $(document).foundation();
+  </script>
+
+  <script>
+    $(function () {
+//        $('#chat-content').css('display', 'none');
+//        $('#side-bar ul li')
+        $('#login-btn').click(function () {
+            $('#upload-file').css('display', 'none')
+            $('#landing-content').css('display', 'block')
+            $('#login-page').css('display', 'none')
+            $('#send-file').css('display', 'none')
+            $('#chat-content').css('display', 'none')
+        })
+        $('#sb-upload-btn').click(function () {
+            $(this).addClass("selected-tab")
+            $('#sb-message-btn').removeClass("selected-tab")
+            $('#sb-send-btn').removeClass("selected-tab")
+            $('#upload-file').css('display', 'block')
+            $('#landing-content').css('display', 'none')
+            $('#login-page').css('display', 'none')
+            $('#send-file').css('display', 'none')
+            $('#chat-content').css('display', 'none')
+        })
+        $('#sb-send-btn').click(function () {
+            $(this).addClass("selected-tab")
+            $('#sb-message-btn').removeClass("selected-tab")
+            $('#sb-upload-btn').removeClass("selected-tab")
+            $('#upload-file').css('display', 'none')
+            $('#landing-content').css('display', 'none')
+            $('#login-page').css('display', 'none')
+            $('#chat-content').css('display', 'none')
+            $('#send-file').css('display', 'block')
+        })
+        $('#sb-message-btn').click(function () {
+            $(this).addClass("selected-tab")
+            $('#sb-upload-btn').removeClass("selected-tab")
+            $('#sb-send-btn').removeClass("selected-tab")
+            $('#upload-file').css('display', 'none')
+            $('#landing-content').css('display', 'none')
+            $('#login-page').css('display', 'none')
+            $('#send-file').css('display', 'none')
+            $('#chat-content').css('display', 'block')
+        })
+        $('#upload-btn').click(function () {
+            let text = $('#charles-prompt').val()
+            //TODO: regex to get the username and the file name from the text
+
+        })
+    })
   </script>
 
   </body>
