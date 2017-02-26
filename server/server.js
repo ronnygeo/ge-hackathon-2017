@@ -50,6 +50,7 @@ io.on('connection', function (socket) {
 
     socket.on('authenticate', function(data){
         if(userService.authenticate(data)){
+            console.log('succ')
             socket.username=data;
             ++numUsers;
             socket.emit('successful');

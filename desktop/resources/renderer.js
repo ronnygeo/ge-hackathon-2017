@@ -1,6 +1,7 @@
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
+
 $(function() {
     var FADE_TIME = 150; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
@@ -12,9 +13,10 @@ $(function() {
 
     // Initialize variables
     var $window = $(window);
-    //var $usernameInput = $('.usernameInput'); // Input for username
     var $messages = $('#messages'); // Messages area
     var $inputMessage = $('#text-input'); // Input message input box
+
+    window.signin = signin;
 
     //var $loginPage = $('.login.page'); // The login page
     //var $chatPage = $('.chat.page'); // The chatroom page
@@ -61,15 +63,13 @@ $(function() {
     //}
 
     function signin(username){
-        username = cleanInput($usernameInput.val().trim());
+        //username = $('#username').val();
+        //username = cleanInput($usernameInput.val().trim());
         if(username){
-            socket.emit('authenticate', username)
-        }
-        else{
-            $window.alert("cant be blank");
+            socket.emit('authenticate', username);
         }
     }
-    signin(username);
+
     // Sends a chat message
     function sendMessage () {
         var message = $inputMessage.val();
@@ -249,7 +249,11 @@ $(function() {
     // Whenever the server emits 'login', log the login message
     socket.on('successful', function (data) {
         connected = true;
-        addParticipantsMessage(data);
+        $('#upload-file').css('display', 'none');
+        $('#landing-content').css('display', 'none');
+        $('#login-page').css('display', 'none');
+        $('#send-file').css('display', 'none');
+        $('#chat-content').css('display', 'block');
     });
 
     socket.on('unsuccessful', function(data){
