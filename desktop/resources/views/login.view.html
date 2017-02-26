@@ -1,0 +1,24 @@
+<form class="form-signin">
+    <h2 class="form-signin-heading">Login</h2>
+
+    <div data-alert class="alert-box secondary">
+        <strong>Invalid User</strong> Username/Password combo does not exist.
+        <a href="#" class="close">&times;</a>
+    </div>
+
+    <div class="form-group">
+        <label for="inputUsername">Username</label>
+        <input type="text" id="inputUsername" ng-model="user.username" class="form-control" placeholder="Username" required />
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input type="password" id="inputPassword" ng-model="user.password" class="form-control" placeholder="Password" required />
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+    </div>
+    <button class="custom-btn" id="login-btn" style="color: white" ng-click="user.login()">Login</button>
+    <!--DEBUG:: UN:{{username}} PWD:{{password}}-->
+</form>

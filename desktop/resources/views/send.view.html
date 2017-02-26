@@ -1,0 +1,55 @@
+<div id="send-contacts" class="row top-bar">
+    <ul>
+        <li>
+            <figure class="tb-user-image">
+                <i class="fa fa-4x fa-plus-circle" aria-hidden="true"></i>
+                <figcaption>Add</figcaption>
+            </figure>
+        </li>
+        <li>
+            <figure class="tb-user-image">
+                <img src="images/placeholder-user.png"/>
+                <figcaption>User 1</figcaption>
+            </figure>
+        </li>
+        <li>
+            <figure class="tb-user-image">
+                <img src="images/placeholder-user.png"/>
+                <figcaption>User 2</figcaption>
+            </figure>
+        </li>
+    </ul>
+</div>
+<div class="row content-holder" id="send-content-holder">
+    <div class="row" style="padding: 5rem;padding-top: 0.5rem">
+        <h4>Charles file transfer</h4>
+        <br>
+        <figure id="charles-talk">
+            <img src="images/placeholder-user.png" />
+            <figcaption>Tell me (Coming Soon)</figcaption>
+        </figure>
+        <br>
+            <input type="text" id="charles-prompt" placeholder="Charles, send file <filename> to user1"/>
+        <br>
+        Or, choose the file and user to send, I'll do the rest.<br>
+        <select name="file" id="file-chooser">
+            <option>File 1</option>
+            <option>File 2</option>
+            <option>File 3</option>
+            <option>File 4</option>
+            <option>File 5</option>
+        </select>
+<br>
+        <select name="send-to-user" id="user-chooser">
+            <option>User 1</option>
+            <option>User 2</option>
+            <option>User 3</option>
+            <option>User 4</option>
+            <option>User 5</option>
+        </select>
+    </div>
+
+    <div class="row custom-btn-container" style="">
+        <a class="custom-btn" style="color: white">Send!</a>
+    </div>
+</div>
